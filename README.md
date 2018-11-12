@@ -11,7 +11,7 @@ dubbo多模块及整合tcc-transaction分布式事物
 - ResourceCoordinatorInterceptor 资源协调者拦截器
 - 事物恢复定时 RecoverScheduledJob
 #### tcc-transaction是开源的TCC补偿性分布式事务框架，git地址：https://github.com/changmingxie/tcc-transaction 
-#### 整合dubbo要添加
+#### 整合dubbo时 pom中要添加依赖
 ```
 <dependency>
             <groupId>org.mengyun</groupId>
