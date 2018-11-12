@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="classpath:tcc-transaction.xml"/>
+    <import resource="classpath:config/appcontext-service-tcc.xml" />
+
+    <context:component-scan base-package="com.dian.t"/>
+
+    <dubbo:application name="tcc.dubbo"/>
+
+    <!-- <context:property-placeholder location="classpath:sample-dubbo-redpacket.properties"
+                                   ignore-unresolvable="true"/>-->
+
+    <!--<dubbo:registry id="capitalRpcZk" address="multicast://224.5.6.7:1234?unicast=false"/>-->
+    <dubbo:registry id="dianT" protocol="zookeeper" register="true" subscribe="false"
+                    address="172.30.22.11" session="1000" port="2181"
+                    timeout="1000" file="./.dubbo/rpc-cache"/>
+
+
+    <dubbo:protocol name="dubbo" port="10020" payload="52428800"/>
+
+    <dubbo:service interface="com.dian.t.api.ComplimentaryGoodsAPI" registry="dianT" ref="complimentaryGoodsProvider" timeout="60000"
+                   retries="0"/>
+</beans>
